@@ -1,9 +1,8 @@
 package tables;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,12 +10,18 @@ import java.util.Objects;
  */
 @Entity
 public class Izdatelstvo {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Basic
+    @Column(name = "nazvanie", nullable = false, length = 100)
     private String nazvanie;
+
+    @Basic
+    @Column(name = "adres", nullable = true, length = 200)
     private String adres;
 
-    @Id
-    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -25,8 +30,6 @@ public class Izdatelstvo {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "nazvanie", nullable = false, length = 100)
     public String getNazvanie() {
         return nazvanie;
     }
@@ -35,8 +38,6 @@ public class Izdatelstvo {
         this.nazvanie = nazvanie;
     }
 
-    @Basic
-    @Column(name = "adres", nullable = true, length = 200)
     public String getAdres() {
         return adres;
     }
@@ -58,5 +59,16 @@ public class Izdatelstvo {
     @Override
     public int hashCode() {
         return Objects.hash(id, nazvanie, adres);
+    }
+
+    @ManyToMany(mappedBy = "izdatelstvoList")
+    private List<City> cities;
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 }

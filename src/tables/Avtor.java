@@ -7,7 +7,10 @@ import java.util.Objects;
 /**
  * Created by Yevhen on 19.01.2016.
  */
-@NamedQuery(name = "Avtor.findAll", query = "select a from Avtor a")
+@NamedQueries({
+        @NamedQuery(name = "Avtor.findAll", query = "select a from Avtor a"),
+        @NamedQuery(name = "Avtor.byName", query = "select a from Avtor a where a.name=:avtorName")
+})
 @Entity
 public class Avtor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

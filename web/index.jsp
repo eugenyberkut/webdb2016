@@ -11,6 +11,10 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+    <h2>Поиск книг по автору</h2>
+    <form action="main" method="get">
+      Автор <input type="text" name="avtorname" /><input type="submit" value="Найти книги" />
+      <input type="hidden" name="findbooks" value="1">
+    </form>
   </body>
 </html>

@@ -26,7 +26,12 @@ public class DBServlet extends HttpServlet {
     BookService bookService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        if (request.getParameter("addavtor")!=null) {
+            String name = request.getParameter("avtorname");
+            String comment = request.getParameter("avtorcomment");
+            avtorService.createAvtor(name, comment);
+            response.sendRedirect("main");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,6 +45,15 @@ public class DBServlet extends HttpServlet {
             List<Book> books = bookService.findAll();
             request.setAttribute("books", books);
             request.getRequestDispatcher("/books.jsp").forward(request, response);
+        } else
+        if (request.getParameter("findbooks")!=null) {
+            Avtor avtor = avtorService.findAvtorByName(request.getParameter("avtorname"));
+            if ("not found".equals(avtor.getName())) {
+                request.getRequestDispatcher("/avtornotfound.jsp").forward(request, response);
+            }else {
+                request.setAttribute("avtor", avtor);
+                request.getRequestDispatcher("/booksbyavtor.jsp").forward(request, response);
+            }
         } else {
             List<Avtor> avtors = avtorService.findAll();
             request.setAttribute("avtors", avtors);

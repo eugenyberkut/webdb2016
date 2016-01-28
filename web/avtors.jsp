@@ -24,5 +24,13 @@
             </c:forEach>
         </tbody>
     </table>
+    <form action="main" method="post">
+        <table>
+            <tr> <td>Имя</td><td><input type="text" name="avtorname" /></td> </tr>
+            <tr> <td>Коммент</td><td><input type="text" name="avtorcomment" /></td> </tr>
+            <tr> <td colspan="2"><input type="submit" value="Добавить" /></td></tr>
+        </table>
+        <input type="hidden" name="addavtor" value="1">
+    </form>
 </body>
 </html>

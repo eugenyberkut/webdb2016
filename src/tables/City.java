@@ -1,9 +1,7 @@
 package tables;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,11 +9,18 @@ import java.util.Objects;
  */
 @Entity
 public class City {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Basic
+    @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @Id
-    @Column(name = "id", nullable = false)
+    @ManyToMany
+    @JoinTable(name = "city_has_izdatelstvo")
+    private List<Izdatelstvo> izdatelstvoList;
+
     public Integer getId() {
         return id;
     }
@@ -24,14 +29,20 @@ public class City {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 45)
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Izdatelstvo> getIzdatelstvoList() {
+        return izdatelstvoList;
+    }
+
+    public void setIzdatelstvoList(List<Izdatelstvo> izdatelstvoList) {
+        this.izdatelstvoList = izdatelstvoList;
     }
 
     @Override
